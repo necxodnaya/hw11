@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useRef } from "react";
+import "./App.css";
 
 function App() {
+  const refColor = useRef();
+  console.log(refColor);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (refColor.current.style.backgroundColor === "red") {
+        return refColor.current.style.backgroundColor = "grey"
+      }else if (refColor.current.style.backgroundColor === "grey") {
+        return refColor.current.style.backgroundColor = "yellow"
+      }else if (refColor.current.style.backgroundColor === "yellow") {
+        return refColor.current.style.backgroundColor = "blue"
+      }
+      return refColor.current.style.backgroundColor = "red"
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div
+      style={{
+        width: "400px",
+        height: "400px",
+        border: "2px solid",
+      }}
+      ref={refColor}
+    ></div>
   );
 }
 
